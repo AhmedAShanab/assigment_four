@@ -1,0 +1,52 @@
+{% extends 'students/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Registered Students</h2>
+            <a href="{% url 'student_create' %}" class="btn btn-success">Add New Student</a>
+        </div>
+        <div class="card p-3">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>University ID</th>
+                            <th>National ID</th>
+                            <th>Mobile Number</th>
+                            <th>Address</th>
+                            <th>Date of Birth</th>
+                            <th>Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                        <tr>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.university_id }}</td>
+                            <td>{{ student.national_id }}</td>
+                            <td>{{ student.mobile_number }}</td>
+                            <td>{{ student.address }}</td>
+                            <td>{{ student.dob }}</td>
+                            <td>
+                                {% if student.image %}
+                                <img src="{{ student.image.url }}" alt="{{ student.name }}" class="student-img">
+                                {% else %}
+                                No Image
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center">No students registered yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
